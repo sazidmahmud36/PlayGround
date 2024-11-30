@@ -3,10 +3,11 @@ package com.playground.playground.serviceImpl;
 import com.playground.playground.entity.Student;
 import com.playground.playground.repository.StudentRepo;
 import com.playground.playground.service.StudentService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -17,8 +18,9 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepo studentRepo;
 
     @Override
-    public Student createStudent(Student student) {
-        return null;
+    public Student createStudent(@RequestBody Student student) {
+        Student saveStudent = studentRepo.save(student);
+        return saveStudent;
     }
 
     @Override
@@ -38,6 +40,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteById(Long id) {
+
+        if (!studentRepo.existsById(id)){
+            ResponseEntity.notFound().build();
+        }else {
+            studentRepo.deleteById(id);
+        }
 
     }
 }

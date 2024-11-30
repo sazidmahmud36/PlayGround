@@ -8,11 +8,11 @@ import { StudentService } from 'src/app/services/student.service';
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css']
 })
-export class StudentsComponent implements OnInit{
+export class StudentsComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private router: Router
-  ){}
+  ) { }
   students: StudentModel[] = [];
 
   ngOnInit(): void {
@@ -31,5 +31,20 @@ export class StudentsComponent implements OnInit{
       }
     });
   }
-  
+
+  deleteStudent(stuId: number): void {
+    if (confirm('Are you sure you want to delete this student?')) {
+      this.studentService.deleteStudent(stuId).subscribe({
+        next: () => {
+          alert("Student Deleted Successfully!");
+          this.router.navigate(["/students"]);
+        }, error: (err) => {
+          console.error('Error deleting student', err)
+        }
+      });
+    }
+  }
+
+
+
 }
