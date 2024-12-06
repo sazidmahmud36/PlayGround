@@ -1,10 +1,8 @@
 package com.playground.playground.controller;
 
 import com.playground.playground.entity.Student;
-import com.playground.playground.repository.StudentRepo;
-import com.playground.playground.serviceImpl.StudentServiceImpl;
+import com.playground.playground.service.StudentService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +15,7 @@ import java.util.List;
 @CrossOrigin("*")
 public class StudentController {
 
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
 //    private StudentRepo studentRepo;
     @PostMapping
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
